@@ -34,7 +34,7 @@ export class Circle extends PureComponent<CircleProps, {}> {
               },
               imageStyle
             ]}
-            source={face.imageUrl}
+            source={{ uri: face.imageUrl }}
             resizeMode={FastImage.resizeMode.cover}
           />
           : <TextAvatar circleSize={circleSize} face={face} />}

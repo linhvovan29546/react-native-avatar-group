@@ -1,7 +1,6 @@
-import type { Source } from "react-native-fast-image";
 
 export interface faceModel {
   id: number;
-  imageUrl?: Source | number,
+  imageUrl?: string,
   fullName?: string
 }
