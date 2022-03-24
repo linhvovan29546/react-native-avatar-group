@@ -2,7 +2,7 @@ import React from "react";
 import { PureComponent } from "react";
 import { Animated, ViewStyle } from "react-native";
 import FastImage from "react-native-fast-image";
-import type { faceModel } from "src/utils/model";
+import type { faceModel } from "../utils/model";
 import styles from "./styles";
 import { TextAvatar } from "./TextAvatar";
 interface CircleProps {

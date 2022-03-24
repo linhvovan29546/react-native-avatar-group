@@ -1,9 +1,9 @@
 import React, { PureComponent } from 'react'
 import { View, Text, ViewStyle, ImageStyle } from 'react-native'
 import styles from './styles'
-import { renderFacePile } from 'src/utils';
+import { renderFacePile } from '../utils';
 import { Circle } from './Circle';
-import type { faceModel } from 'src/utils/model';
+import type { faceModel } from '../utils/model';
 
 
 // *** Use component ***

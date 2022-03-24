@@ -1,8 +1,8 @@
 import React from "react";
 import { PureComponent } from "react";
 import { Text, View } from "react-native";
-import { getInitialName } from "src/utils";
-import type { faceModel } from "src/utils/model";
+import { getInitialName } from "../utils";
+import type { faceModel } from "../utils/model";
 import styles from "./styles";
 
 interface TextAvatarProps {
