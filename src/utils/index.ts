@@ -17,3 +17,18 @@ export function getInitialName(name: string) {
     : '';
 }
 
+export function renderFacePile(faces: any[], numFaces: number) {
+  const entities = [...faces.reverse()];
+  if (!entities.length) return {
+    facesToRender: [],
+    overflow: 0
+  }
+
+  const facesToRender = entities.slice(0, numFaces)
+  const overflow = entities.length - facesToRender.length
+
+  return {
+    facesToRender,
+    overflow
+  }
+}

@@ -1,4 +1,4 @@
-import HorizontalGroup from './HorizontalGroup';
+import HorizontalGroupAvatar from './HorizontalGroup';
 
 
-export { HorizontalGroup }
+export { HorizontalGroupAvatar }

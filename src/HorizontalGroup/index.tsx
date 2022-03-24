@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
-import { View, Text, Animated, ViewStyle, ImageStyle } from 'react-native'
-import FastImage from "react-native-fast-image";
+import { View, Text, ViewStyle, ImageStyle } from 'react-native'
 import styles from './styles'
-import { getInitialName } from 'src/utils';
+import { renderFacePile } from 'src/utils';
+import { Circle } from './Circle';
+import type { faceModel } from 'src/utils/model';
 
 
 // *** Use component ***
@@ -35,106 +36,9 @@ const FACES = [
 ];
 
 // <HorizontalGroupAvatar numFaces={3} faces={FACES} containerStyle={styles.groupAvatarContainer} />
-interface TextAvatarProps {
-  circleSize: number;
-  face: any
-}
-class TextAvatar extends PureComponent<TextAvatarProps, {}> {
-  generateColor = () => {
-    const avatarColors = [
-      "#F44336",
-      "#E91E63",
-      "#9C27B0",
-      "#673AB7",
-      "#3F51B5",
-      "#2196F3",
-      "#03A9F4",
-      "#00BCD4",
-      "#009688",
-      "#4CAF50",
-      "#8BC34A",
-      "#FF9800",
-      "#FF5722"
-    ];
-    const randomColor = Math.floor(Math.random() * avatarColors.length);
-    return avatarColors[randomColor];
-  };
 
-  render() {
-    const { circleSize, face } = this.props;
-    const innerCircleSize = circleSize * 2;
-    const name = getInitialName(face.fullName ? face.fullNameme : '');
-
-    return <View
-      style={[
-        styles.textAvatarView,
-        {
-          width: innerCircleSize,
-          height: innerCircleSize,
-          borderRadius: circleSize,
-          backgroundColor: this.generateColor()
-        }
-      ]}
-    >
-      <Text style={styles.textAvatar}>{name}</Text>
-    </View>
-  }
-}
-interface CircleProps {
-  circleSize: number;
-  face: any;
-  faces: any[];
-  imageStyle: ViewStyle;
-  circleStyle?: ViewStyle;
-  offset: number;
-}
-class Circle extends PureComponent<CircleProps, {}> {
-  render() {
-    const { faces, imageStyle, circleSize, face, circleStyle } = this.props
-    const innerCircleSize = circleSize * 2
-    const marginRight = faces.length < 4 ? 3 : -(circleSize / 1.5);
-
-    return (
-      <Animated.View
-        style={[circleStyle, { marginRight: marginRight }]}
-      >
-        {face.imageUrl
-          ? <FastImage
-            style={[
-              styles.circleImage,
-              {
-                width: innerCircleSize,
-                height: innerCircleSize,
-                borderRadius: circleSize
-              },
-              imageStyle
-            ]}
-            source={face.imageUrl}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-          : <TextAvatar circleSize={circleSize} face={face} />}
-      </Animated.View>
-    )
-  }
-}
-
-export function renderFacePile(faces: any[], numFaces: number) {
-  const entities = [...faces.reverse()];
-  if (!entities.length) return {
-    facesToRender: [],
-    overflow: 0
-  }
-
-  const facesToRender = entities.slice(0, numFaces)
-  const overflow = entities.length - facesToRender.length
-
-  return {
-    facesToRender,
-    overflow
-  }
-}
 interface HorizontalGroupAvatarProps {
-  faces: any[];
+  faces: faceModel[];
   circleSize: number;
   hideOverflow: boolean;
   containerStyle: ViewStyle;
@@ -143,7 +47,7 @@ interface HorizontalGroupAvatarProps {
   overflowStyle: ViewStyle;
   overflowLabelStyle: ViewStyle;
   // render: PropTypes.func;
-  numFaces: any;
+  numFaces: number;
   offset: number
 }
 export default class HorizontalGroupAvatar extends PureComponent<HorizontalGroupAvatarProps, {}> {
