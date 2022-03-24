@@ -81,7 +81,6 @@ export default class HorizontalGroupAvatar extends PureComponent<HorizontalGroup
       >
         <View
           style={[
-            styles.overflow,
             {
               width: innerCircleSize,
               height: innerCircleSize,
