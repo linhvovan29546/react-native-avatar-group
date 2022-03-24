@@ -33,7 +33,7 @@ export class TextAvatar extends PureComponent<TextAvatarProps, {}> {
   render() {
     const { circleSize, face } = this.props;
     const innerCircleSize = circleSize * 2;
-    const name = getInitialName(face.fullName ? face.fullNameme : '');
+    const name = getInitialName(face.fullName ? face.fullName : '');
 
     return <View
       style={[
