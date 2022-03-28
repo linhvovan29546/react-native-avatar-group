@@ -16,16 +16,7 @@ export default function App() {
       imageUrl: 'https://thiepnhanai.com/wp-content/uploads/2021/05/hinh-anh-dai-dien-fb-dep-chat-2.jpg',
       fullName: 'Kobe',
     },
-    {
-      id: 2,
-      imageUrl: 'https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg',
-      fullName: 'Jayne cran'
-    },
-    {
-      id: 3,
-      imageUrl: '',//'https://thiepnhanai.com/wp-content/uploads/2021/05/hinh-anh-dai-dien-fb-dep-chat-1.jpg',
-      fullName: 'Jenifer Nguyen'
-    },
+
 
   ];
   return (
@@ -36,11 +27,13 @@ export default function App() {
         containerStyle={{
           marginBottom: 20
         }}
+        numFaces={4}
       />
 
       <HorizontalGroupAvatar
         faces={FACES}
         type={showType.circle}
+        numFaces={2}
       />
     </View>
   );

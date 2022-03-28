@@ -1,6 +1,6 @@
 import React from "react";
 import { PureComponent } from "react";
-import { Animated, ViewStyle } from "react-native";
+import { Animated, View, ViewStyle } from "react-native";
 import FastImage from "react-native-fast-image";
 import { faceModel, showType } from "../utils/model";
 import styles from "./styles";
@@ -49,12 +49,12 @@ export class Circle extends PureComponent<CircleProps, {}> {
   };
 
   _renderHorizontal = () => {
-    const { faces, imageStyle, circleSize, face, randomColor } = this.props;
+    const { faces, imageStyle, circleSize, face, randomColor, numFaces = 3 } = this.props;
     const innerCircleSize = circleSize * 2
-    const marginRight = faces.length < 4 ? 3 : -(circleSize / 1.5);
-
+    const marginRight = -(circleSize / 1.5);
+    const isMargin = faces.length <= numFaces
     return (
-      <Animated.View style={{ marginRight: marginRight }}>
+      <View style={!isMargin && { marginRight: marginRight }}>
         {face.imageUrl
           ? <FastImage
             style={[
@@ -73,13 +73,12 @@ export class Circle extends PureComponent<CircleProps, {}> {
             randomColor={randomColor}
             circleSize={circleSize}
             face={face} />}
-      </Animated.View>
+      </View>
     )
   };
 
   _renderCircle = () => {
-    const { faces, imageStyle, circleSize, face, index, } = this.props;
-    const numFaces = 3;
+    const { faces, imageStyle, circleSize, face, index, numFaces = 3 } = this.props;
     const innerCircleSize = this.getSize(faces, circleSize);
     const containerStyle: ViewStyle | undefined = this.getContainerStyle(faces, index);
 

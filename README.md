@@ -19,7 +19,21 @@ import { HorizontalGroupAvatar } from "react-native-avatar-group";
 
 
 ```
+## Screenshot
+
+<table>
+  <tr>
+    <td><p align="center"><img src="/docs/notnumface.png" height="500"></p></td>
+ <td><p align="center"><img src="/docs/numface1.png" height="500"></p></td>
+  <td><p align="center"><img src="/docs/numface2.png" height="500"></p></td>
+   <td><p align="center"><img src="/docs/numface3.png" height="500"></p></td>
+  </tr>
+</table>
 ## Example
+```js
+import { HorizontalGroupAvatar } from "react-native-avatar-group";
+
+// ...
 const FACES = [
     {
       id: 0,
@@ -42,7 +56,7 @@ const FACES = [
       fullName: 'Jenifer Nguyen'
     },
   ];
-
+// ...
   <HorizontalGroupAvatar
         faces={FACES}
         type={showType.horizontal}
@@ -55,6 +69,9 @@ const FACES = [
         faces={FACES}
         type={showType.circle}
   />
+
+```
+
 
 ## Contributing
 

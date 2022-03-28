@@ -55,20 +55,26 @@ export default class GroupAvatar extends PureComponent<HorizontalGroupAvatarProp
       overflowLabelStyle,
       circleSize = 20,
       offset = 1,
-      type
+      type,
+      faces,
+      numFaces = 3
     } = this.props;
     if (type === showType.horizontal) {
       const innerCircleSize = circleSize * 2
+      const isMargin = faces.length <= numFaces
       const marginLeft = (circleSize * offset) - (circleSize / 1.2)
       return (
         <View
           style={[
             styles.overflow,
+            !isMargin && {
+              marginLeft: -marginLeft
+            },
             {
               width: innerCircleSize,
               height: innerCircleSize,
               borderRadius: circleSize,
-              marginLeft: -marginLeft
+
             },
             overflowStyle
           ]}
