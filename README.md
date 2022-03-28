@@ -29,6 +29,7 @@ import { HorizontalGroupAvatar } from "react-native-avatar-group";
    <td><p align="center"><img src="/docs/numface3.png" height="500"></p></td>
   </tr>
 </table>
+
 ## Example
 ```js
 import { HorizontalGroupAvatar } from "react-native-avatar-group";
