@@ -4,3 +4,7 @@ export interface faceModel {
   imageUrl?: string,
   fullName?: string
 }
+export enum showType {
+  horizontal = 'horizontal',
+  circle = 'circle'
+}

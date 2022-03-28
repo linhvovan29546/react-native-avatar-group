@@ -19,7 +19,6 @@ export default StyleSheet.create({
   },
   textAvatar: {
     color: 'white',
-    fontWeight: '500',
     fontSize: 18,
     letterSpacing: -1,
     marginLeft: 3,
@@ -31,11 +30,36 @@ export default StyleSheet.create({
     borderColor: 'white',
     borderWidth: 2,
   },
+  overflowCircleType: {
+    backgroundColor: 'gray',
+    borderColor: 'white',
+    borderWidth: 2,
+  },
   overflowLabel: {
-    color: 'black',
-    fontWeight: '500',
+    color: 'white',
     fontSize: 18,
     letterSpacing: -1,
-    marginLeft: 3,
+    textAlign: 'center',
+    marginHorizontal: 3,
+  },
+  topLeft: {
+    position: 'absolute',
+    top: 0,
+    left: 0
+  },
+  topRight: {
+    position: 'absolute',
+    top: 0,
+    right: 0
+  },
+  bottomLeft: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0
+  },
+  bottomRight: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0
   }
 })

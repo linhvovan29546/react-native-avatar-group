@@ -1,4 +1,5 @@
 import HorizontalGroupAvatar from './HorizontalGroup';
+import { showType } from './utils/model';
 
 
-export { HorizontalGroupAvatar }
+export { HorizontalGroupAvatar, showType }

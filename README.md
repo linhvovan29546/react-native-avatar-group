@@ -5,7 +5,9 @@ a component to display a group of avatars
 ## Installation
 
 ```sh
-npm install react-native-avatar-group
+npm install react-native-fast-image
+# npm install react-native-avatar-group
+install via link github
 ```
 
 ## Usage

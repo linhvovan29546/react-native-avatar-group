@@ -1,83 +1,66 @@
 import React, { PureComponent } from 'react'
-import { View, Text, ViewStyle, ImageStyle } from 'react-native'
+import { View, Text, TouchableOpacity, ViewStyle, ImageStyle } from 'react-native'
 import styles from './styles'
-import { renderFacePile } from '../utils';
 import { Circle } from './Circle';
-import type { faceModel } from '../utils/model';
+import { faceModel, showType } from '..//utils/model';
 
-
-// *** Use component ***
-const FACES = [
-  {
-    id: 0,
-    imageUrl: 'http://www.yojackets.com/wp-content/uploads/2016/04/Civil-War-Scarlet-Witch-Red-Coat-1.jpg',
-    fullName: 'Kobe Pham'
-  },
-  {
-    id: 1,
-    imageUrl: 'https://thiepnhanai.com/wp-content/uploads/2021/05/hinh-anh-dai-dien-fb-dep-chat-2.jpg',
-    fullName: 'Kobe',
-  },
-  {
-    id: 2,
-    imageUrl: 'https://haycafe.vn/wp-content/uploads/2021/11/Anh-avatar-dep-chat-lam-hinh-dai-dien.jpg',
-    fullName: 'Jayne cran'
-  },
-  {
-    id: 3,
-    imageUrl: '',//'https://thiepnhanai.com/wp-content/uploads/2021/05/hinh-anh-dai-dien-fb-dep-chat-1.jpg',
-    fullName: 'Jenifer Nguyen'
-  },
-  {
-    id: 4,
-    imageUrl: 'https://hinhnen123.com/wp-content/uploads/2021/12/Top-36-anh-dai-dien-dep-me-ly-khong-xem-hoi-phi-28.jpg',
-    fullName: 'Jessica Quacky'
+export function renderFacePile(faces: faceModel[], numFaces: number) {
+  const entities = [...faces.reverse()];
+  if (!entities.length) return {
+    facesToRender: [],
+    overflow: 0
   }
-];
 
-// <HorizontalGroupAvatar numFaces={3} faces={FACES} containerStyle={styles.groupAvatarContainer} />
+  const facesToRender = entities.slice(0, numFaces)
+  const overflow = entities.length - facesToRender.length
 
+  return {
+    facesToRender,
+    overflow
+  }
+}
 interface HorizontalGroupAvatarProps {
   faces: faceModel[];
-  circleSize: number;
-  hideOverflow: boolean;
-  containerStyle: ViewStyle;
-  circleStyle: ViewStyle;
-  imageStyle: ImageStyle;
-  overflowStyle: ViewStyle;
-  overflowLabelStyle: ViewStyle;
+  circleSize?: number;
+  hideOverflow?: boolean;
+  containerStyle?: ViewStyle;
+  imageStyle?: ImageStyle;
+  overflowStyle?: ViewStyle;
+  overflowLabelStyle?: ViewStyle;
   // render: PropTypes.func;
-  numFaces: number;
-  offset: number
+  numFaces?: number;
+  offset?: number;
+  render?: any;
+  type?: showType;
+  actionOnPress?: () => void;
+  activeOpacity?: number;
+  randomColor?: boolean;
 }
-export default class HorizontalGroupAvatar extends PureComponent<HorizontalGroupAvatarProps, {}> {
+
+export default class GroupAvatar extends PureComponent<HorizontalGroupAvatarProps, {}> {
 
   static defaultProps = {
-    faces: FACES,
     circleSize: 20,
-    numFaces: 4,
+    numFaces: 3,
     offset: 1,
     hideOverflow: false,
+    type: showType.horizontal,
+    activeOpacity: 1
   }
 
-  _renderOverflowCircle = (overflow: number) => {
+
+  _renderOverflowCircle = (overflow: string | number) => {
     const {
-      circleStyle,
       overflowStyle,
       overflowLabelStyle,
-      circleSize,
-      offset
-    } = this.props
-
-    const innerCircleSize = circleSize * 2
-    const marginLeft = (circleSize * offset) - (circleSize / 1.2)
-
-    return (
-      <View
-        style={[
-          circleStyle
-        ]}
-      >
+      circleSize = 20,
+      offset = 1,
+      type
+    } = this.props;
+    if (type === showType.horizontal) {
+      const innerCircleSize = circleSize * 2
+      const marginLeft = (circleSize * offset) - (circleSize / 1.2)
+      return (
         <View
           style={[
             styles.overflow,
@@ -90,43 +73,80 @@ export default class HorizontalGroupAvatar extends PureComponent<HorizontalGroup
             overflowStyle
           ]}
         >
-          <Text
-            style={[
-              styles.overflowLabel,
-              overflowLabelStyle
-            ]}
-          >
-            +{overflow}
-          </Text>
+          <Text numberOfLines={1} style={[styles.overflowLabel, overflowLabelStyle]}>+{overflow}</Text>
         </View>
-      </View>
-    )
+      );
+    } else {
+      const innerCircleSize = circleSize * 1.2;
+      return (
+        <View
+          style={[
+            styles.bottomRight,
+            styles.overflowCircleType,
+            {
+              width: innerCircleSize,
+              height: innerCircleSize,
+              borderRadius: innerCircleSize / 2,
+              justifyContent: 'center'
+            },
+            overflowStyle
+          ]}
+        >
+          <Text numberOfLines={1} style={[styles.overflowLabel, { fontSize: (innerCircleSize / 2) * 0.95 }, overflowLabelStyle]}>+{overflow}</Text>
+        </View>
+      );
+    }
   }
 
-  _renderFace = (face: any, index: number) => {
-    const { faces, circleStyle, imageStyle, circleSize, offset } = this.props;
+  _renderFace = (face: faceModel, index: number) => {
+    const { faces,
+      imageStyle,
+      circleSize = 20,
+      randomColor,
+      offset = 1,
+      type = showType.horizontal,
+      numFaces = 3 } = this.props;
+
     return (
       <Circle
-        key={index}
+        randomColor={randomColor}
+        key={face.id || index}
         face={face}
-        circleStyle={circleStyle}
         imageStyle={imageStyle}
         circleSize={circleSize}
         offset={offset}
         faces={faces}
+        type={type}
+        index={index}
+        numFaces={numFaces}
       />
     )
   }
 
   render() {
-    const { faces, numFaces, hideOverflow, containerStyle } = this.props;
-    // if (render) return render({ faces, numFaces });
+    const {
+      render,
+      faces,
+      numFaces = 3,
+      hideOverflow,
+      containerStyle,
+      type,
+      circleSize = 20,
+      activeOpacity = 1,
+      actionOnPress } = this.props;
+    if (render) return render({ faces, numFaces });
+
     const { facesToRender, overflow } = renderFacePile(faces, numFaces);
+    const typeContainer: ViewStyle = type === showType.circle ? { position: 'relative', width: circleSize * 2, height: circleSize * 2 } : styles.container
     return (
-      <View style={[styles.container, containerStyle]}>
+      <TouchableOpacity
+        activeOpacity={activeOpacity}
+        onPress={actionOnPress}
+        style={[typeContainer, containerStyle]}>
         {Array.isArray(facesToRender) && facesToRender.map(this._renderFace)}
         {overflow > 0 && !hideOverflow && this._renderOverflowCircle(overflow)}
-      </View>
+      </TouchableOpacity>
     );
   }
 }
+

@@ -7,9 +7,12 @@ import styles from "./styles";
 
 interface TextAvatarProps {
   circleSize: number;
-  face: faceModel
+  face: faceModel;
+  randomColor?: boolean;
 }
 export class TextAvatar extends PureComponent<TextAvatarProps, {}> {
+
+
   generateColor = () => {
     const avatarColors = [
       "#F44336",
@@ -31,22 +34,22 @@ export class TextAvatar extends PureComponent<TextAvatarProps, {}> {
   };
 
   render() {
-    const { circleSize, face } = this.props;
+    const { circleSize, face, randomColor = true } = this.props;
     const innerCircleSize = circleSize * 2;
     const name = getInitialName(face.fullName ? face.fullName : '');
 
     return <View
       style={[
         styles.textAvatarView,
+        randomColor && { backgroundColor: this.generateColor() },
         {
           width: innerCircleSize,
           height: innerCircleSize,
           borderRadius: circleSize,
-          backgroundColor: this.generateColor()
         }
       ]}
     >
-      <Text style={styles.textAvatar}>{name}</Text>
+      <Text style={[styles.textAvatar, { fontSize: circleSize * 0.95 }]}>{name}</Text>
     </View>
   }
 }
